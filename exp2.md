@@ -35,13 +35,18 @@
 ### （二）文件管理命令实操结果
 1.  **文件列表查看**：`ls`命令成功列出当前目录下的所有文件和目录，目录以深蓝色显示；`ls -l`命令输出了详细信息，包含文件类型、权限、所有者、大小、修改时间等，例如根目录下显示`drwxr-xr-x 4 root root 4096 Jan 24 20:13 boot`，明确了boot目录的权限、所有者及修改时间。
 2.  **文件创建与内容查看**：`touch filename`命令成功创建了名为filename的文件，`cat filename`命令正常显示文件内容，如输出`This is the content of file.`。
-3.  **文件复制、移动、重命名与删除**：`cp`命令在目标目录成功生成了源文件的副本；`mv`命令实现了文件的跨目录移动，且文件在源目录中被移除，同时成功将filename重命名为new filename；`rm`命令执行后，目标文件从目录中彻底删除，`ls`命令已无法查询到该文件。
+<img width="967" height="667" alt="image" src="https://github.com/user-attachments/assets/3b0d2d6f-629e-4df7-9135-fc553388a1f7" />
+
+3.  
+4.  **文件复制、移动、重命名与删除**：`cp`命令在目标目录成功生成了源文件的副本；`mv`命令实现了文件的跨目录移动，且文件在源目录中被移除，同时成功将filename重命名为new filename；`rm`命令执行后，目标文件从目录中彻底删除，`ls`命令已无法查询到该文件。
+   <img width="926" height="404" alt="image" src="https://github.com/user-attachments/assets/d5d83767-8a1c-462a-a601-829be7bd6ac1" />
+
 
 ### （三）文件权限修改结果
 执行`chmod o+x xyz.txt`命令后，其他用户对xyz.txt文件获得了执行权限，通过`ls -l`命令可观察到文件权限字段中其他用户对应的权限位从原本的`r`或`rw`变为`rx`，权限修改操作生效，实现了对文件访问权限的精准控制。
+<img width="898" height="472" alt="image" src="https://github.com/user-attachments/assets/c9688d77-bdc8-41bf-b6f5-8a726ef768e7" />
+
 
 ### （四）文件共享方案调研结果
 完成了FTP、SFTP、Samba和SCP四种文件共享方法的调研，明确FTP适用于简单文件传输但安全性较低；SFTP基于SSH协议，兼具安全性和传输功能；Samba可实现Linux与Windows系统间的文件共享；SCP适用于Linux设备间的加密文件传输，为后续选择合适的文件共享方案提供了依据。
 
----
-我可以帮你针对实验内容中的某一模块进行细化补充，比如**完善文件共享某一方法的具体配置步骤**，或者**添加文件权限修改的更多实操案例**，你需要吗？
