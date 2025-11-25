@@ -78,7 +78,7 @@ whoami
 
 ---
 
-### **（5）编写与编译 C 程序**
+### **（4）编写与编译 C 程序**
 
 1. 新建文件：
 
@@ -103,12 +103,6 @@ gcc hello.c -o hello
 ./hello
 ```
 
-成功输出：
-
-```
-Hello Linux!
-```
-
 ---
 
 ## **四、实验结果**
@@ -118,10 +112,11 @@ Hello Linux!
 1. 成功安装 VirtualBox 并创建 Ubuntu 虚拟机。
 2. Ubuntu 系统可正常启动、登录和进行软件更新。
 3. 掌握了常用 bash 命令，如 ls、cd、pwd、chmod 等。
-4. 能够在终端中编写、编译并运行 C 语言程序。
-5. 完成了 Linux 开发环境初始化，为后续操作系统实验提供了基础平台。
+4. <img width="1190" height="736" alt="image" src="https://github.com/user-attachments/assets/4f450de5-8ffa-458e-8666-363cb07c2960" />
+
+5. 能够在终端中编写、编译并运行 C 语言程序。
+6. <img width="627" height="242" alt="image" src="https://github.com/user-attachments/assets/2695695a-8cbd-4f79-a8a7-d397f21fa6f4" />
+
+7. <img width="813" height="166" alt="image" src="https://github.com/user-attachments/assets/9ec402dc-bc10-4782-9306-a8d98a458fba" />
 
 
-📌 **把这份实验报告排版成 Word / PDF**
-📌 **按照你实际安装时的截图帮你插图并美化报告**
-📌 **继续帮你写实验 2 ~ 6 的实验报告**
