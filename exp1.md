@@ -105,7 +105,7 @@ gcc hello.c -o hello
 
 ---
 
-## **四、实验结果**
+## **三、实验结果**
 
 通过本次实验：
 
@@ -115,8 +115,12 @@ gcc hello.c -o hello
 4. <img width="1190" height="736" alt="image" src="https://github.com/user-attachments/assets/4f450de5-8ffa-458e-8666-363cb07c2960" />
 
 5. 能够在终端中编写、编译并运行 C 语言程序。
-6. <img width="627" height="242" alt="image" src="https://github.com/user-attachments/assets/2695695a-8cbd-4f79-a8a7-d397f21fa6f4" />
 
-7. <img width="813" height="166" alt="image" src="https://github.com/user-attachments/assets/9ec402dc-bc10-4782-9306-a8d98a458fba" />
+<img width="627" height="242" alt="image" src="https://github.com/user-attachments/assets/2695695a-8cbd-4f79-a8a7-d397f21fa6f4" />
+
+<img width="813" height="166" alt="image" src="https://github.com/user-attachments/assets/9ec402dc-bc10-4782-9306-a8d98a458fba" />
+
+<img width="952" height="283" alt="image" src="https://github.com/user-attachments/assets/b1a6605a-e12a-4a5f-afe4-324f93a5fe90" />
+
 
 
