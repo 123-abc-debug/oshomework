@@ -1,3 +1,12 @@
+# 实验内容
+## 1.实验1
+创建文件：touch test1.sh
+编辑文件：将上述代码复制到 test1.sh 中（可用 vim test1.sh 编辑）
+添加执行权限：chmod +x test1.sh
+运行脚本：./test1.sh
+按照提示输入姓名（如 Zara Ali），按回车确认
+
+
 
 Task
 Lear shell programming by following the instructions inshell script.pdf
