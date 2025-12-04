@@ -3,9 +3,14 @@
 （2）随机模拟多个内存分配请求。
 （3）对仿真结果进行深入分析。
 
-# **实验报告：基于分段存储管理的内存分配与外部碎片模拟**
+Memory Management
+Implement a memory management strategy based on Segmentation, simulate
+memory allocation and deallocation processes, observe and analyze the resulting
+external fragmentation, and understand its underlying causes. The specific
+requirements are as follows:
+(1) Write in C/C++. (2) Randomly simulate multiple memory allocation requests. (3) Conduct in-depth analysis of the simulation results..
 
----
+# **实验报告：基于分段存储管理的内存分配与外部碎片模拟**
 
 ## **一、实验目的**
 
@@ -49,7 +54,44 @@
    * 显示内存占用图（如 0/1 表示空闲/占用）
    * 显示空闲区数量、最大空闲区、碎片数等指标。
 
----
+① 验证初始安全状态的判定逻辑；
+
+② 测试合法资源请求的分配流程；
+
+③ 模拟非法请求的过滤机制；
+
+④ 验证请求后系统变不安全的回滚策略。实验以2个基础进程（P₀~P₁）、3类资源（A/B/C）为核心，延伸设计4类典型实验场景。
+
+
+实现步骤
+1.初始状态安全检查
+
+输入初始状态
+
+  
+  Enter number of resource types: 3直接输“3”，按回车（代表3类资源A/B/C）Enter total amount of each resource (space separated): 10 5 7输“10 5 7”（中间用空格隔开），按回车（3类资源的总量）
+  
+  Enter number of processes: 2输“2”，按回车（代表2个进程P0、P1）
+  
+  Enter maximum demand for Process P0 (space separated): 7 5 3输“7 5 3”，按回车（P0对3类资源的最大需求）
+  
+  Enter maximum demand for Process P1 (space separated): 3 2 2输“3 2 2”，按回车（P1对3类资源的最大需求）
+  
+  Enter allocated resources for Process P0 (space separated): 0 1 0输“0 1 0”，按回车（初始分配给P0的资源）
+  
+  Enter allocated resources for Process P1 (space separated): 2 0 0输“2 0 0”，按回车（初始分配给P1的资源）
+
+
+
+  合法资源请求
+  Enter your choice (1 or 2): 1输“1”（选择“发起资源请求”），按回车
+  
+  Enter the process ID making the request: 1输“1”（代表请求的进程是P1），按回车（进程ID只能是0或1，因为只有2个进程）
+  
+  Enter requested resources for Process P1 (space separated): 1 0 2输“1 0 2”（P1请求1个A、0个B、2个C资源），按回车
+
+
+非法资源请求
 
 ## **三、实验结果**
 
@@ -77,6 +119,195 @@
    * 需要通过紧凑(compaction) 或分页机制来解决
 
 ---
+
+实验内容（多场景拓展版，贴合实际操作与典型情况）
+
+一、实验核心目标与场景设计
+
+本实验以银行家算法为核心，通过“基础场景+异常场景”的组合设计，完整验证死锁避免机制的有效性。核心目标包括：① 验证初始安全状态的判定逻辑；② 测试合法资源请求的分配流程；③ 模拟非法请求的过滤机制；④ 验证请求后系统变不安全的回滚策略。实验以2个基础进程（P₀~P₁）、3类资源（A/B/C）为核心，延伸设计4类典型实验场景。
+
+二、统一实验环境配置
+
+为保证场景对比的有效性，所有实验场景基于统一的初始资源配置（除特殊说明外），具体如下：
+
+配置项
+
+具体内容
+
+说明
+
+进程数量
+
+2个（P₀、P₁）
+
+模拟并发执行的基础进程单元
+
+资源类型
+
+3类（A、B、C）
+
+分别对应CPU、内存、I/O设备资源
+
+总资源向量（Total）
+
+(10, 5, 7)
+
+系统中每类资源的物理总量
+
+Max矩阵（最大需求）
+
+P₀: (7,5,3)；P₁: (3,2,2)
+
+进程运行全程对各类资源的最大需求上限
+
+基础Allocation矩阵（初始分配）
+
+P₀: (0,1,0)；P₁: (2,0,0)
+
+系统启动时已分配给进程的资源量
+
+基础Need矩阵（剩余需求）
+
+P₀: (7,4,3)；P₁: (1,2,2)
+
+Need = Max - Allocation，即进程还需的资源量
+
+基础Available向量（可用资源）
+
+(8,4,7)
+
+Available = Total - 所有进程Allocation之和
+
+三、分场景实验过程与结果
+
+场景1：初始状态安全检查（基础验证）
+
+实验目的：验证银行家算法的安全序列生成逻辑，确认初始状态是否具备无死锁条件。
+
+1. 操作时机：编译运行程序后，首先进入“System Initialization（系统初始化）”阶段，按提示逐行输入以下内容。
+
+2. 逐行输入内容（带屏幕提示对应）：
+  屏幕出现的提示文字你需要输入的内容输入说明（小白必看）Enter number of resource types: 3直接输“3”，按回车（代表3类资源A/B/C）Enter total amount of each resource (space separated): 10 5 7输“10 5 7”（中间用空格隔开），按回车（3类资源的总量）Enter number of processes: 2输“2”，按回车（代表2个进程P0、P1）Enter maximum demand for Process P0 (space separated): 7 5 3输“7 5 3”，按回车（P0对3类资源的最大需求）Enter maximum demand for Process P1 (space separated): 3 2 2输7“3 2 2”，按回车（P1对3类资源的最大需求）Enter allocated resources for Process P0 (space separated): 0 1 0输“0 1 0”，按回车（初始分配给P0的资源）Enter allocated resources for Process P1 (space separated): 2 0 0输“2 0 0”，按回车（初始分配给P1的资源）
+
+3. 等待程序自动执行：输入完成后，程序会自动计算Need、Available矩阵，并执行安全检查，无需你操作。
+
+4. 查看实验结果：程序会输出“Initial system state is safe. Safe sequence: P0 P1 ”，代表初始状态安全，场景1完成。
+
+5. 小白注意事项：
+  输入时只输数字和空格，不要加括号（比如输“10 5 7”不是“(10,5,7)”）；
+
+6. 如果输错（比如多输一个数字），程序会提示“Invalid input”，按提示重新输入即可。
+
+场景2：合法资源请求（正常分配流程）
+
+实验目的：模拟符合规则的资源请求，验证“合法性校验→试探分配→安全检查→正式分配”的完整流程。
+
+1. 操作时机：场景1完成后，屏幕会出现“Menu”菜单，此时进入场景2的资源请求流程。
+
+2. 逐行输入内容（带屏幕提示对应）：
+  屏幕出现的提示文字你需要输入的内容输入说明（小白必看）===== Menu =====
+1. Make a resource request
+2. Exit
+Enter your choice (1 or 2): 1输“1”（选择“发起资源请求”），按回车Enter the process ID making the request: 1输“1”（代表请求的进程是P1），按回车（进程ID只能是0或1，因为只有2个进程）Enter requested resources for Process P1 (space separated): 1 0 2输“1 0 2”（P1请求1个A、0个B、2个C资源），按回车
+
+3. 等待程序自动执行：输入完成后，程序会自动做3件事：① 校验请求是否合法；② 试探分配资源；③ 检查新状态是否安全，无需你操作。
+
+4. 查看实验结果：程序会输出以下内容，代表分配成功：
+  System is safe after allocation.
+
+5. Safe sequence: P0 P1 
+
+6. Updated Available: 7 4 5 
+
+7. 后续操作：分配完成后，屏幕会再次出现“Menu”菜单，此时可选择“2”退出，或继续其他场景。
+
+8. 小白注意事项：
+  进程ID不能乱输（比如输“2”会提示“Invalid input”），只能是0或1；
+
+9. 请求资源数必须是3个（对应3类资源），少输或多输都会被提示重新输入。
+
+场景3：非法资源请求（过滤机制验证）
+
+实验目的：模拟两类典型非法请求，验证算法对无效请求的过滤能力，避免系统状态混乱。
+
+子场景3.1：请求超过进程剩余需求
+
+- 操作时机：重新编译运行程序，完成场景1的初始化输入后，当屏幕出现“Menu”菜单时，开始此场景。
+
+- 逐行输入内容（带屏幕提示对应）：
+  屏幕出现的提示文字你需要输入的内容输入说明（小白必看）===== Menu =====
+1. Make a resource request
+2. Exit
+Enter your choice (1 or 2): 1输“1”，按回车（选择发起请求）Enter the process ID making the request: 1输“1”（请求进程为P1），按回车Enter requested resources for Process P1 (space separated): 2 0 2输“2 0 2”（故意让A类资源请求超需求），按回车
+
+- 查看实验结果：程序会立即提示“Request exceeds the remaining need. Request denied.”，代表请求被拒绝，不执行分配。
+
+- 小白为什么会拒绝？：P1的A类资源剩余需求是1（Need矩阵里P1的A是1），但你请求2，超过了“最大需要”，所以非法。
+
+- 核心意义：防止进程请求超出自身最大需求，避免资源请求的逻辑矛盾。
+
+子场景3.2：请求超过系统可用资源
+
+- 操作时机：有两种方式触发：① 完成场景2（P1已分配资源后）发起请求；② 初始化后直接发起（需用大请求数），这里推荐方式①，步骤更清晰。
+
+- 前置步骤：先按场景2的步骤，让P1成功分配资源（此时Available更新为7 4 5），屏幕再次出现“Menu”菜单。
+
+- 逐行输入内容（带屏幕提示对应）：
+  屏幕出现的提示文字你需要输入的内容输入说明（小白必看）===== Menu =====
+1. Make a resource request
+2. Exit
+Enter your choice (1 or 2): 1输“1”，按回车Enter the process ID making the request: 0输“0”（请求进程为P0），按回车Enter requested resources for Process P0 (space separated): 9 0 0输“9 0 0”（A类资源请求9，超过当前可用的7），按回车
+
+- 查看实验结果：程序提示“Resources unavailable. Process blocked.”，代表P0被阻塞，请求被拒绝。
+
+- 小白为什么会阻塞？：系统当前只有7个A类资源可用，但P0要9个，资源不够，只能让P0等着，直到其他进程释放资源。
+
+- 核心意义：避免可用资源耗尽导致的系统瘫痪，通过阻塞机制协调资源供需。
+
+场景4：请求后系统变不安全（回滚机制验证）
+
+实验目的：模拟“请求合法但分配后不安全”的临界场景，验证算法的回滚策略，从源头避免死锁。
+
+1. 操作准备：此场景需要修改“初始分配矩阵”，所以编译运行程序后，在初始化阶段就输入新的分配数据，不要用默认的初始配置。
+
+2. 第一步：特殊初始化输入（关键！）：按以下内容完成初始化，和场景1的输入只有P0的分配资源不同：
+  屏幕提示文字你输入的内容小白说明Enter number of resource types: 3和场景1一样Enter total amount of each resource (space separated): 10 5 7和场景1一样Enter number of processes: 2和场景1一样Enter maximum demand for Process P0 (space separated): 7 5 3和场景1一样Enter maximum demand for Process P1 (space separated): 3 2 2和场景1一样Enter allocated resources for Process P0 (space separated): 1 1 0这里和场景1不同！输“1 1 0”Enter allocated resources for Process P1 (space separated): 2 0 0和场景1一样输入完成后，程序会提示初始状态安全（安全序列还是P0→P1），进入“Menu”菜单。
+
+3. 第二步：先让P1发起请求（和场景2一样）：
+  屏幕提示输入内容Enter your choice (1 or 2): 1Enter the process ID making the request: 1Enter requested resources for Process P1 (space separated): 1 0 2此时P1请求成功，Available更新为(7-1,4-0,7-2)=(6,4,5)。
+
+4. 第三步：让P0发起临界请求（关键操作）：屏幕再次出现“Menu”菜单，继续输入：
+  屏幕提示输入内容Enter your choice (1 or 2): 1Enter the process ID making the request: 0Enter requested resources for Process P0 (space separated): 6 4 3
+
+5. 等待程序自动执行：程序会先判断请求合法（6≤6、4≤4、3≤3；且6≤6、4≤4、3≤5），然后执行试探分配，再检查安全状态。
+
+6. 查看实验结果：程序提示“System would be unsafe! Request denied, state rolled back.”，代表请求被拒绝，系统恢复到请求前的状态。
+
+7. 小白为什么会回滚？：虽然P0的请求合法，但分配后系统没有安全序列了（P1需要2个B资源，但可用资源只有0个），可能死锁，所以程序“反悔”了，把资源退回去。
+
+8. 回滚效果：Available还是(6,4,5)，P0的Need还是(6,4,3)，和请求前一样。
+
+9. 核心意义：通过“试探-检查-回滚”机制，即使请求合法，也会因可能导致死锁而拒绝，是死锁避免的核心保障。
+
+
+
+
+
+四、实验关键数据记录要求
+
+为支撑后续结果分析，每类场景需记录以下数据，形成对比表格：
+
+- 基础数据记录（小白直接填下表）：
+  场景操作类型请求进程ID请求资源量（A,B,C）1安全检查无无2资源分配1(1,0,2)3.1资源分配1(2,0,2)3.2资源分配0(9,0,0)4资源分配0(6,4,3)
+
+- 状态数据记录（小白对照程序输出填）：以场景2为例，其他场景按此格式记录：
+  场景操作前Available操作后Available涉及进程的Allocation（操作后）涉及进程的Need（操作后）2(8,4,7)(7,4,5)P1: (3,0,2)P1: (0,2,0)3.1(8,4,7)无（未分配）P1: (2,0,0)（不变）P1: (1,2,2)（不变）
+
+- 结果数据记录（小白直接抄程序提示）：
+  场景安全序列（若有）操作结果死锁风险1P0,P1初始状态安全无2P0,P1分配成功无3.1无请求拒绝无（未分配）3.2无进程阻塞无（阻塞而非死锁）4无请求拒绝，系统回滚有（回滚后消除）
+
+- 小白记录技巧：程序输出的内容可以用“复制粘贴”（终端里选中就是复制，右键是粘贴）到文档里，避免手动输入出错。
+
 
 ## 实验数据说明
 <img width="808" height="803" alt="ef048e3b9f86e0a7071c22809e88d8e0" src="https://github.com/user-attachments/assets/14899079-8d04-4e0e-9cb9-e70486a892ba" />
